@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxb.springboot.mapper.System_OrderInfoMapper">
+	<select id="getOrderinfoByUserid" resultType="map">
+		SELECT oinfo.ofid,SUM(gdcount*price) price FROM orderinfo oinfo 
+			JOIN orderlist olist ON oinfo.ofid=olist.ofid WHERE oinfo.userid=#{userid} and ofstate=1 
+			GROUP BY oinfo.ofid  
+	</select>
+	<select id="getOrderinfoByOfid" resultType="map">
+		SELECT oinfo.ofid,SUM(gdcount*price) price FROM orderinfo oinfo 
+			JOIN orderlist olist ON oinfo.ofid=olist.ofid 
+			WHERE oinfo.ofid=#{ofid}
+			GROUP BY oinfo.ofid 
+	</select>
+	
+</mapper>

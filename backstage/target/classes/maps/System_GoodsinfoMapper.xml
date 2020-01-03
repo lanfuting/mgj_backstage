@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxb.springboot.mapper.System_GoodsinfoMapper">
+	<select id="selectGoodsinfoByPage" resultType="map">
+		SELECT
+		goods.gdid,goods.gdname,img.gimgurl FROM
+
+		goodsinfo goods JOIN
+		goodsimage img ON goods.gdid=img.gdid
+
+		WHERE img.gimgtype=1 and
+		goods.gdid &lt;=130;
+	</select>
+
+	<select id="selectByKeyword" resultType="map">
+		SELECT gtkeywords FROM
+		goodsinfo WHERE gtkeywords LIKE #{keyword} LIMIT 8;
+	</select>
+
+	<select id="selectOnlyGoodsinfo" resultType="map">
+		SELECT goods.gdid,goods.gdname,gdimgs.gimgurl,gdprice.price 
+		FROM goodsinfo goods
+		JOIN goodsimage gdimgs
+		JOIN goodsprice gdprice WHERE goods.gdid=gdimgs.gdid
+		AND goods.gdid=gdprice.gdid
+		AND gdprice.gdid=#{gdid} AND gdprice.utid=1 LIMIT 1;
+	</select>
+</mapper>

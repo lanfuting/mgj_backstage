@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxb.springboot.mapper.System_CartMapper">
+	<select id="getUserCart" resultType="map">
+		SELECT ct.ctid,ct.gdcount,goods.gdname,gsize.gstext,gprice.price,image.gimgurl FROM cart ct 
+		      JOIN goodsinfo goods ON ct.gdid=goods.gdid 
+		      JOIN goodsimage image ON image. gdid=goods.gdid
+		      JOIN goodssize gsize ON gsize. gsid=ct.gsid
+		      JOIN goodsprice gprice ON gprice. gdid=goods.gdid
+		      JOIN USER ON user.userid=ct.userid
+		      WHERE user.userid=#{userid} AND image.gimgtype=1 AND gprice.utid=user.utid;
+	</select>
+	
+	<select id="getPageCart" resultType="int">
+		SELECT COUNT(*) FROM cart WHERE userid=#{userid};
+	</select>
+	
+</mapper>
