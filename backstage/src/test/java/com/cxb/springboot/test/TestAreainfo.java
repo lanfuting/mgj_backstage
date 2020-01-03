@@ -18,6 +18,7 @@ import com.cxb.springboot.mapper.System_GoodsinfoMapper;
 import com.cxb.springboot.pojo.User;
 import com.cxb.springboot.service.AreainfoService;
 import com.cxb.springboot.service.GoodsinfoService;
+import com.cxb.springboot.service.SupplierService;
 
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,12 +27,13 @@ public class TestAreainfo {
 	AreainfoService areainfoService;
 	@Autowired
 	GoodsinfoService goodsinfoService;
+	@Autowired
+	SupplierService supplierService;
+	
 	@Test
 	public void test1(){
-		User user = new User();
-		user.setUserid(13);
-		Integer integer = goodsinfoService.getPage(2,user);
-		System.out.println(integer);
+		supplierService.insertNewGoods("美丽无敌大长袖", "12345", 123.00, 1,1 );
+		
 	}
 
 }
