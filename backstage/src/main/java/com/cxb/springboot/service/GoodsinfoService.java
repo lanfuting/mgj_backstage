@@ -24,6 +24,7 @@ import com.cxb.springboot.mapper.OrderlistMapper;
 import com.cxb.springboot.mapper.System_CartMapper;
 import com.cxb.springboot.mapper.System_GoodsinfoMapper;
 import com.cxb.springboot.mapper.System_OrderInfoMapper;
+import com.cxb.springboot.mapper.System_SupplierMapper;
 import com.cxb.springboot.mapper.UserMapper;
 import com.cxb.springboot.pojo.Cart;
 import com.cxb.springboot.pojo.CartExample;
@@ -60,6 +61,9 @@ public class GoodsinfoService {
 	OrderlistMapper orderlistMapper;
 	@Autowired
 	System_OrderInfoMapper system_OrderInfoMapper;
+	
+	
+	
 	
 	/**
 	 * 使用支付宝付款之后，把付款的信息删除掉

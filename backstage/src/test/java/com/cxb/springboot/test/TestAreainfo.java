@@ -15,6 +15,7 @@ import com.cxb.springboot.exception.Password_ErroerException;
 import com.cxb.springboot.exception.User_StatusBanException;
 import com.cxb.springboot.exception.Username_isNullException;
 import com.cxb.springboot.mapper.System_GoodsinfoMapper;
+import com.cxb.springboot.pojo.Goodsinfo;
 import com.cxb.springboot.pojo.User;
 import com.cxb.springboot.service.AreainfoService;
 import com.cxb.springboot.service.GoodsinfoService;
@@ -30,9 +31,13 @@ public class TestAreainfo {
 	@Autowired
 	SupplierService supplierService;
 	
+	
 	@Test
 	public void test1(){
-		supplierService.insertNewGoods("美丽无敌大长袖", "12345", 123.00, 1,1 );
+		List<Goodsinfo> list = supplierService.selectSuppGoodsByGdname("%美丽无敌大长袖%");
+		for (Goodsinfo g : list) {
+			System.out.println(g);
+		}
 		
 	}
 
