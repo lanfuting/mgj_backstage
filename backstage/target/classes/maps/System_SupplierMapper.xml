@@ -11,6 +11,12 @@
 		JOIN orderinfo orinfo ON orinfo.userid=user.userid
 		WHERE supp.gtid=#{gtid}
 	</select>
+	<select id="getSuppGoods" resultType="map">
+		SELECT * FROM goodsinfo goods 
+		JOIN suppliergoods supp_gds ON supp_gds.gdid=goods.gdid
+		JOIN supplier supp ON supp.gtid=supp_gds.ssup_goods
+		WHERE supp.gtid=#{gtid}
+	</select>
 
 	
 </mapper>

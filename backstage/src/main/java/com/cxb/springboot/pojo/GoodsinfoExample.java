@@ -451,6 +451,66 @@ public class GoodsinfoExample {
             addCriterionForJDBCDate("gtdate not between", value1, value2, "gtdate");
             return (Criteria) this;
         }
+
+        public Criteria andStatucIsNull() {
+            addCriterion("statuc is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatucIsNotNull() {
+            addCriterion("statuc is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatucEqualTo(Integer value) {
+            addCriterion("statuc =", value, "statuc");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatucNotEqualTo(Integer value) {
+            addCriterion("statuc <>", value, "statuc");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatucGreaterThan(Integer value) {
+            addCriterion("statuc >", value, "statuc");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatucGreaterThanOrEqualTo(Integer value) {
+            addCriterion("statuc >=", value, "statuc");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatucLessThan(Integer value) {
+            addCriterion("statuc <", value, "statuc");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatucLessThanOrEqualTo(Integer value) {
+            addCriterion("statuc <=", value, "statuc");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatucIn(List<Integer> values) {
+            addCriterion("statuc in", values, "statuc");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatucNotIn(List<Integer> values) {
+            addCriterion("statuc not in", values, "statuc");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatucBetween(Integer value1, Integer value2) {
+            addCriterion("statuc between", value1, value2, "statuc");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatucNotBetween(Integer value1, Integer value2) {
+            addCriterion("statuc not between", value1, value2, "statuc");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

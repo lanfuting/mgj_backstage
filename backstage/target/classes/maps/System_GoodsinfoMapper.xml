@@ -9,14 +9,15 @@
 		goodsimage img ON goods.gdid=img.gdid
 
 		WHERE img.gimgtype=1 and
-		goods.gdid &lt;=130;
+		goods.gdid &lt;=130 AND goods.statuc=1;
 	</select>
 
 	<select id="selectByKeyword" resultType="map">
 		SELECT gtkeywords FROM
 		goodsinfo WHERE gtkeywords LIKE #{keyword} LIMIT 8;
 	</select>
-
+	
+	
 	<select id="selectOnlyGoodsinfo" resultType="map">
 		SELECT goods.gdid,goods.gdname,gdimgs.gimgurl,gdprice.price 
 		FROM goodsinfo goods

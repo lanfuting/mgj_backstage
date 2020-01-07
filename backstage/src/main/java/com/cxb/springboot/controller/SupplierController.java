@@ -24,18 +24,35 @@ public class SupplierController {
 	@Autowired
 	SupplierService supplierService;
 	
+	
+	
+	
 	/**
-	 * 显示出当前的这件商品信息，点击上架就是v-if变成true，点击下架就是false，
+	 * 把当前供应商的添加的商品在页面上显示
+	 * @param gtid
+	 * @return
+	 */
+	@RequestMapping(value = "selectsuppliergoods")
+	public Object selectSupplierGoods(HttpSession session){
+		Supplier supplier = (Supplier) session.getAttribute("supplier");
+		return supplierService.selectSuppGoods(supplier.getGtid());
+	}
+	
+	/**
+	 * 显示出当前的这件商品信息
 	 * 需要传回的值是商品的名称
 	 * @param gdname
 	 * @return
 	 */
-	@RequestMapping(value = "selectsuppgoodsbyname")
-	public Object selectSuppGoodsByName(String gdname ){
+	@RequestMapping(value = "changesuppgoods")
+	public Object changeSuppGoods(Integer statuc,String gdname){
 		StringBuffer buffer = new StringBuffer("%");
 		buffer.append(gdname).append("%");
-		return supplierService.selectSuppGoodsByGdname(buffer.toString());
+		System.out.println(statuc+"--"+buffer.toString());
+		
+		return supplierService.changeSuppGoodsStatuc(statuc,buffer.toString());
 	}
+	
 	
 	/**
 	 * 这是用户下订单后，显示在商家页面上的发货单
@@ -79,18 +96,18 @@ public class SupplierController {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		//把文件名字使用uuid重新排序
+		/*//把文件名字使用uuid重新排序
 		String str = UUID.randomUUID().toString();
 		StringBuffer buff = new StringBuffer(fileName);
 		String uuidStr = str.replace("-", "");
 		buff.append(str);
-		String gimgurl = buff.toString();
+		String gimgurl = buff.toString();*/
 		//得到在session中的供应商信息
 		Supplier supplier = (Supplier) session.getAttribute("supplier");
 		//调用service方法
-		supplierService.insertNewGoods(gdname, gimgurl , price, gsid, supplier.getGtid());
+		supplierService.insertNewGoods(gdname, fileName , price, gsid, supplier.getGtid());
 		// 返回json
-		return true;
+		return "添加成功请点击返回!";
 	}
 
 	public static void uploadFile(byte[] file, String filePath, String fileName) throws Exception {

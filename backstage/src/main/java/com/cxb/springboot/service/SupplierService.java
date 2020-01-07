@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,13 +14,15 @@ import com.cxb.springboot.mapper.GoodsinfoMapper;
 import com.cxb.springboot.mapper.GoodspriceMapper;
 import com.cxb.springboot.mapper.GoodssizeMapper;
 import com.cxb.springboot.mapper.SupplierMapper;
+import com.cxb.springboot.mapper.SuppliergoodsMapper;
+import com.cxb.springboot.mapper.System_GoodsinfoMapper;
 import com.cxb.springboot.mapper.System_SupplierMapper;
 import com.cxb.springboot.pojo.Goodsimage;
 import com.cxb.springboot.pojo.Goodsinfo;
 import com.cxb.springboot.pojo.GoodsinfoExample;
 import com.cxb.springboot.pojo.Goodsprice;
 import com.cxb.springboot.pojo.Goodssize;
-import com.cxb.springboot.pojo.GoodssizeExample;
+import com.cxb.springboot.pojo.Suppliergoods;
 
 @Service
 public class SupplierService {
@@ -35,19 +38,39 @@ public class SupplierService {
 	@Autowired
 	SupplierMapper supplierMapper;
 	@Autowired
+	SuppliergoodsMapper suppliergoodsMapper;
+	@Autowired
 	System_SupplierMapper system_SupplierMapper;
+	@Autowired
+	System_GoodsinfoMapper system_GoodsinfoMapper;
 	
+	
+	/**
+	 * 把当前供应商的添加的商品在页面上显示
+	 * @param gtid
+	 * @return
+	 */
+	public List<Map> selectSuppGoods(Integer gtid){
+		return system_SupplierMapper.getSuppGoods(gtid);
+	}
 	
 	/**
 	 * 根据前端传回来的商品名称进行查询出相应的商品，进行上架和下架操作
 	 * @param gdname
 	 * @return
 	 */
-	public List<Goodsinfo> selectSuppGoodsByGdname(String gdname){
+	
+	public int changeSuppGoodsStatuc(Integer statuc,String gdname){
+		GoodsinfoExample ex = new GoodsinfoExample();
+		ex.createCriteria().andGdnameLike(gdname);
+		List<Goodsinfo> list = goodsinfoMapper.selectByExample(ex );
+		Goodsinfo record = list.get(0);
+		record.setStatuc(statuc);
 		GoodsinfoExample example = new GoodsinfoExample();
 		example.createCriteria().andGdnameLike(gdname);
-		return goodsinfoMapper.selectByExample(example );
+		return goodsinfoMapper.updateByExample(record , example );
 	}
+	
 	
 	/**
 	 * 用户下单后，商家页面可以看到的购买者信息，包括价格、数量、总价收件人信息等
@@ -94,6 +117,13 @@ public class SupplierService {
 		insert_price.setUtid(1);
 		insert_price.setGdid(goodsinfo.getGdid());
 		goodspriceMapper.insertSelective(insert_price);
+		
+		//添加到供用商的添加商品表里
+		Suppliergoods insert_suppliergoods = new Suppliergoods();
+		insert_suppliergoods.setSsupStatus(1);
+		insert_suppliergoods.setGdid(goodsinfo.getGdid());
+		insert_suppliergoods.setSsupGoods(gtid);
+		suppliergoodsMapper.insert(insert_suppliergoods);
 		
 		//如果尺寸不存在则添加商品尺寸大小
 		Goodssize insert_size = new Goodssize();

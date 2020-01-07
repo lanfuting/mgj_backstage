@@ -34,10 +34,9 @@ public class TestAreainfo {
 	
 	@Test
 	public void test1(){
-		List<Goodsinfo> list = supplierService.selectSuppGoodsByGdname("%美丽无敌大长袖%");
-		for (Goodsinfo g : list) {
-			System.out.println(g);
-		}
+		
+		 
+		
 		
 	}
 
