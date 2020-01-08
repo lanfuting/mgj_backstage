@@ -19,6 +19,7 @@ import com.cxb.springboot.pojo.Goodsinfo;
 import com.cxb.springboot.pojo.User;
 import com.cxb.springboot.service.AreainfoService;
 import com.cxb.springboot.service.GoodsinfoService;
+import com.cxb.springboot.service.ScrollimgsService;
 import com.cxb.springboot.service.SupplierService;
 
 @SpringBootTest
@@ -30,11 +31,16 @@ public class TestAreainfo {
 	GoodsinfoService goodsinfoService;
 	@Autowired
 	SupplierService supplierService;
+	@Autowired
+	ScrollimgsService scrollimgsService;
 	
 	
 	@Test
 	public void test1(){
-		
+		List<Map> list = scrollimgsService.getScrollimgsByPage(3, 2);
+		for (Map map : list) {
+			System.out.println(map);
+		}
 		 
 		
 		
