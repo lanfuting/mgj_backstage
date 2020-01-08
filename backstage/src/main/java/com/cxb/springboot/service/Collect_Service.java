@@ -43,22 +43,11 @@ public class Collect_Service {
 	 * 将指定商品放入收藏商品
 	 * @param info 封装有收藏商品信息的对象
 	 */
-	@Transactional
-	public void collection(Collect info){
-		CollectExample example=new CollectExample();
-		example.createCriteria().andUseridEqualTo(info.getUserid()).andGdidEqualTo(info.getGdid());
-		List<Collect> collects=collectMapper.selectByExample(example);
-		//查询 指定用户收藏商品表中是否已存在 相关规格商品
-		//如果存在，改变 商品数量即可
-		if(collects!=null && collects.size()==1){
-			Collect ct=collects.get(0);
-			/*ct.setGdcount(ct.getGdcount()+info.getGdcount());*/
-			collectMapper.updateByPrimaryKey(ct);
-		}else{
+	public Boolean collection(Collect info){
+	
 			// 如果是新商品，添加收藏商品信息
-			collectMapper.insert(info);
-			
-		}
+			return collectMapper.insertSelective(info)==1;
+
 	}
 	
 	/**
@@ -75,8 +64,10 @@ public class Collect_Service {
 	 * @param clid
 	 * @return
 	 */
-	public boolean deleteId(Integer clid){
-		return (collectMapper.deleteByPrimaryKey(clid)==1);
+	public boolean deleteId(Integer gdid){
+		CollectExample example = new CollectExample();
+		example.createCriteria().andGdidEqualTo(gdid);
+		return (collectMapper.deleteByExample(example )==1);
 	}
 
 }

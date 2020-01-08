@@ -2,7 +2,7 @@ package com.cxb.springboot.pojo;
 
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+
 public class Collect {
     private Integer clid;
 

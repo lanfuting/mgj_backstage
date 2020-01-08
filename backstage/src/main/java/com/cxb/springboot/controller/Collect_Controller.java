@@ -1,7 +1,6 @@
 package com.cxb.springboot.controller;
 
-import java.util.List;
-import java.util.Map;
+
 
 import javax.servlet.http.HttpSession;
 
@@ -15,7 +14,7 @@ import com.cxb.springboot.service.Collect_Service;
 
 
 @RestController
-@RequestMapping("/collect")
+@RequestMapping(value="/collect")
 public class Collect_Controller {
 	//用户商品收藏功能，用户登录后，个人收藏的商品收藏图标为金色，为收藏的为白色
 	
@@ -40,6 +39,7 @@ public class Collect_Controller {
 	public Object favorites(Collect collect,HttpSession session){
 		User user=(User) session.getAttribute("user");
 		collect.setUserid(user.getUserid());
+		System.out.println(collect.getGdid()+"--"+collect.getUserid());
 		collect_Service.collection(collect);
 		return true;
 	}
@@ -62,8 +62,8 @@ public class Collect_Controller {
 	 * @return	删除封装有 编号、图片、单价等信息的列表
 	 */
 	@RequestMapping("deletemerchandise")
-	public Object deleteMerchandise(Integer clid){
-		collect_Service.deleteId(clid);
+	public Object deleteMerchandise(Integer gdid){
+		collect_Service.deleteId(gdid);
 		return true;
 	}
 	

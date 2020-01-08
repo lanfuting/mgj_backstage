@@ -9,7 +9,7 @@
 		goodsimage img ON goods.gdid=img.gdid
 
 		WHERE img.gimgtype=1 and
-		goods.gdid &lt;=130 AND goods.statuc=1;
+		goods.gdid &gt;=700 AND goods.statuc=1;
 	</select>
 
 	<select id="selectByKeyword" resultType="map">

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cxb.springboot.mapper.System_SupplierMapper">
 	<select id="getUserOrderTosupp" resultType="map">
-		SELECT supp.slogname, ginfo.gdid,orlist.price,orlist.gdcount,(orlist.gdcount*orlist.price) money,gsize.gstext,orinfo.recipient,orinfo.address,orinfo.contactnumber FROM suppliergoods supp_gds 
+		SELECT ginfo.gdname, supp.slogname, ginfo.gdid,orlist.price,orlist.gdcount,(orlist.gdcount*orlist.price) money,gsize.gstext,orinfo.recipient,orinfo.address,orinfo.contactnumber FROM suppliergoods supp_gds 
 		JOIN  supplier supp ON supp_gds.ssup_goods=supp.gtid
 		JOIN goodsinfo ginfo ON ginfo.gdid=supp_gds.gdid
 		JOIN orderlist orlist ON orlist.gdid=supp_gds.gdid
